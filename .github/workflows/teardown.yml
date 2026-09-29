@@ -1,5 +1,5 @@
 
-name: "Teardown — Delete All Stacks"
+ name: "Teardown — Delete All Stacks"
 
 on:
   # MANUAL ONLY — this workflow never runs automatically.
@@ -24,18 +24,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Fail immediately if the user did not type "DELETE"
-      - name: "🛑 Check confirmation input"
+      - name: "Check confirmation input"
         run: |
           if [ "${{ github.event.inputs.confirmation }}" != "DELETE" ]; then
             echo "╔══════════════════════════════════════════════════════╗"
-            echo "║  ❌ Teardown CANCELLED                               ║"
+            echo "║  Teardown CANCELLED                               ║"
             echo "║                                                      ║"
             echo "║  You must type DELETE (all caps) to confirm.        ║"
             echo "║  You typed: '${{ github.event.inputs.confirmation }}'"
             echo "╚══════════════════════════════════════════════════════╝"
             exit 1
           fi
-          echo "✅ Confirmation received. Proceeding with teardown..."
+          echo "Confirmation received. Proceeding with teardown..."
 
   teardown:
     name: "Delete All CloudFormation Stacks"
@@ -43,11 +43,11 @@ jobs:
     needs: confirm   # Only run if the confirm job passed
 
     steps:
-      - name: "📥 Checkout repository"
+      - name: "Checkout repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         # SECURITY: Pinned SHA prevents supply chain attacks.
 
-      - name: "🔐 Configure AWS credentials"
+      - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502  # v4.0.2
         # SECURITY: Pinned SHA prevents supply chain attacks.
         with:
@@ -55,7 +55,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
 
-      - name: "⚙️ Set stack names"
+      - name: "Set stack names"
         run: |
           BRANCH="${{ github.event.inputs.target_branch }}"
           echo "TARGET_BRANCH=$BRANCH" >> $GITHUB_ENV
@@ -66,7 +66,7 @@ jobs:
       # ── Empty the S3 bucket before deleting Stack 1 ──────────────────────
       # CloudFormation CANNOT delete an S3 bucket that still has objects in it.
       # We must empty the bucket first or the stack deletion will fail.
-      - name: "🗑️ Empty S3 bucket (required before stack deletion)"
+      - name: "Empty S3 bucket (required before stack deletion)"
         run: |
           # Get the bucket name from the stack outputs (if stack exists)
           BUCKET_NAME=$(aws cloudformation describe-stacks \
@@ -84,7 +84,7 @@ jobs:
           fi
 
       # ── Delete Stack 1 ────────────────────────────────────────────────────
-      - name: "🗑️ Delete Stack 1 — Storage"
+      - name: "Delete Stack 1 — Storage"
         run: |
           echo "Deleting stack: $STACK1"
           if aws cloudformation describe-stacks --stack-name "$STACK1" &>/dev/null; then
@@ -99,7 +99,7 @@ jobs:
       # ── Delete Stack 2 ────────────────────────────────────────────────────
       # This deletes: EC2 instance, Elastic IP, VPC, Subnet, IGW, Security Group, IAM Role.
       # The Elastic IP will be released (freeing you from any EIP charges).
-      - name: "🗑️ Delete Stack 2 — Server"
+      - name: "Delete Stack 2 — Server"
         run: |
           echo "Deleting stack: $STACK2"
           if aws cloudformation describe-stacks --stack-name "$STACK2" &>/dev/null; then
@@ -112,7 +112,7 @@ jobs:
           fi
 
       # ── Delete Stack 3 ────────────────────────────────────────────────────
-      - name: "🗑️ Delete Stack 3 — Serverless"
+      - name: "Delete Stack 3 — Serverless"
         run: |
           echo "Deleting stack: $STACK3"
           if aws cloudformation describe-stacks --stack-name "$STACK3" &>/dev/null; then
@@ -125,16 +125,16 @@ jobs:
           fi
 
       # ── Final summary ─────────────────────────────────────────────────────
-      - name: "✅ Teardown complete"
+      - name: "Teardown complete"
         run: |
           echo ""
           echo "╔════════════════════════════════════════════════════════════════╗"
-          echo "║  ✅ Teardown complete!                                        ║"
+          echo "║  Teardown complete!                                        ║"
           echo "║                                                                ║"
           echo "║  All three stacks have been deleted:                          ║"
-          echo "║    Stack 1 (S3 website)        ✅ Deleted                    ║"
-          echo "║    Stack 2 (EC2 server)         ✅ Deleted                   ║"
-          echo "║    Stack 3 (Lambda API)         ✅ Deleted                   ║"
+          echo "║    Stack 1 (S3 website)        Deleted                    ║"
+          echo "║    Stack 2 (EC2 server)        Deleted                   ║"
+          echo "║    Stack 3 (Lambda API)        Deleted                   ║"
           echo "║                                                                ║"
           echo "║  AWS charges going forward: $0.00                            ║"
           echo "║                                                                ║"
