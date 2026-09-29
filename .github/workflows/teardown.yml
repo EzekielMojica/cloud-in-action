@@ -1,7 +1,7 @@
 
  name: "Teardown — Delete All Stacks"
 
-on:
+ on:
   # MANUAL ONLY — this workflow never runs automatically.
   # You must go to Actions tab → Teardown → Run workflow → type DELETE.
   workflow_dispatch:
@@ -18,7 +18,7 @@ on:
         default: "main"
         type: string
 
-jobs:
+ jobs:
   confirm:
     name: "Verify confirmation"
     runs-on: ubuntu-latest
