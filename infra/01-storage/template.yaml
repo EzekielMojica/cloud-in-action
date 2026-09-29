@@ -1,32 +1,6 @@
-# =============================================================================
-# STACK 1: "Hello, Cloud Storage"
-# =============================================================================
-#
-# WHAT THIS TEMPLATE DOES:
-#   Creates an Amazon S3 bucket configured as a static website host.
-#   You upload an HTML file once, and the whole world can visit it -
-#   no servers, no maintenance, no surprise bills.
-#
-# WHAT YOU WILL LEARN:
-#   1. What a CloudFormation Template is (a recipe for cloud resources)
-#   2. What Amazon S3 is (cloud object storage - like a USB drive in the sky)
-#   3. What "Parameters" and "Outputs" are in CloudFormation
-#   4. What "deploying a stack" means
-#
-# FREE TIER: S3 gives you 5 GB storage + 20,000 GET requests FREE per month.
-#            This demo will cost exactly $0.00.
-#
-# HOW TO DEPLOY (from your terminal):
-#   aws cloudformation deploy \
-#     --template-file infra/01-storage/template.yaml \
-#     --stack-name cloud-in-action-storage \
-#     --parameter-overrides ProjectName=cloud-in-action Environment=dev
-#
-# =============================================================================
-
 # AWSTemplateFormatVersion tells CloudFormation which version of the
-# template language to use. Always use "2010-09-09" - it's the only
-# supported version and has been stable for over a decade.
+# template language to use. Always use "2010-09-09" 
+# it's a supported version and has been stable for over a decade.
 AWSTemplateFormatVersion: "2010-09-09"
 
 # Description appears in the AWS Console so you know
@@ -109,7 +83,7 @@ Resources:
         ErrorDocument: error.html   # Serve this file on 404 errors
 
       # SECURITY NOTE: For a public static website, we MUST allow public access.
-      # S3 blocks all public access by default (good!).
+      # S3 blocks all public access by default (good for security purposes!).
       # We override that here ONLY because this bucket IS meant to be public.
       # In production: never disable block public access unless you need to.
       PublicAccessBlockConfiguration:
