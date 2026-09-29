@@ -6,7 +6,7 @@ on:
   # Trigger automatically when infra/01-storage/ files change on main.
   push:
     branches:
-      - main
+      - "**"
     paths:
       - "infra/01-storage/**"   # Only run when Stack 1 files change
 

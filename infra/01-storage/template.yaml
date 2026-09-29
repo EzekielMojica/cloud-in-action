@@ -155,7 +155,7 @@ Outputs:
       # Useful when stacks need to share values (e.g., EC2 stack reads S3 URL).
       Name: !Sub "${AWS::StackName}-WebsiteURL"
 
-  # The bucket name - useful for aws s3 cp commands
+  # The bucket name - useful for aws s3 cp commands ~
   BucketName:
     Description: >
       The S3 bucket name. Use this with 'aws s3 cp' to upload files:
