@@ -61,7 +61,7 @@ Parameters:
 
   InstanceType:
     Type: String
-    Default: t2.micro
+    Default: t3.micro
     # AllowedValues restricts to FREE TIER eligible instance types ONLY.
     # This prevents accidentally deploying an expensive instance type.
     AllowedValues:
