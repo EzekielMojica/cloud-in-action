@@ -411,7 +411,6 @@ Resources:
           EOF
           chmod +x /usr/local/bin/metrics-daemon.sh
           nohup /usr/local/bin/metrics-daemon.sh >/dev/null 2>&1 &
-          
           # 4. Write Reactive HTML Dashboard
           cat > /usr/share/nginx/html/index.html << 'HTMLEOF'
           <!DOCTYPE html>
@@ -473,7 +472,7 @@ Resources:
               <header>
                 <div>
                   <h1>☁️ EC2 Live Telemetry Dashboard</h1>
-                  <p style="color: var(--text-muted); margin-top: 4px;">Dynamic Infrastructure as Code (Stack 2)</p>
+                  <p style="color: var(--text-muted); margin-top: 4px;">Dynamic Infrastructure as Code</p>
                 </div>
                 <div class="badge-live"><span class="pulse"></span> LIVE REACTIVE SERVER</div>
               </header>
