@@ -380,15 +380,16 @@ Resources:
           echo "Stack: ${AWS::StackName}"
           echo "Region: ${AWS::Region}"
 
-          # Update all installed packages to their latest versions.
-          # Security best practice: always run updates on first boot.
-          echo "--- Updating packages ---"
-          dnf update -y
-
-          # Install nginx - a high-performance web server.
-          # nginx will serve our HTML page to visitors.
+          # Universal package update & nginx install (handles AL2 and AL2023)
           echo "--- Installing nginx ---"
-          dnf install -y nginx
+          if command -v dnf >/dev/null 2>&1; then
+            dnf update -y
+            dnf install -y nginx
+          else
+            yum update -y
+            amazon-linux-extras enable nginx1 || true
+            yum install -y nginx
+          fi
 
           # Write our custom welcome page.
           # This is what visitors see when they open the website URL.
