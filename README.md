@@ -1,9 +1,6 @@
 # ☁️ Cloud in Action
 
 > *"Infrastructure as Code: where a text file becomes a server."*
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![AWS Free Tier](https://img.shields.io/badge/AWS-Free%20Tier-orange)](https://aws.amazon.com/free/)
-
 ---
 
 ## 🎯 What is this?
