@@ -1,8 +1,6 @@
 # ☁️ Cloud in Action
 
 > *"Infrastructure as Code: where a text file becomes a server."*
-
-[![Validate Templates](https://github.com/YOUR-USERNAME/cloud-in-action/actions/workflows/validate.yml/badge.svg)](https://github.com/YOUR-USERNAME/cloud-in-action/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![AWS Free Tier](https://img.shields.io/badge/AWS-Free%20Tier-orange)](https://aws.amazon.com/free/)
 
