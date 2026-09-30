@@ -385,7 +385,7 @@ Resources:
 
           # 3. Setup real-time metrics daemon
           mkdir -p /usr/share/nginx/html/api
-          cat << 'EOF' > /usr/local/bin/metrics-daemon.sh
+          cat > /usr/local/bin/metrics-daemon.sh << 'EOF'
           #!/bin/bash
           while true; do
             UPTIME=$(uptime -p 2>/dev/null || uptime)
@@ -393,12 +393,16 @@ Resources:
             RAM=$(free -m | awk 'NR==2{printf "%.0f", $3*100/$2}')
             DISK=$(df -h / | awk 'NR==2{print $5}' | tr -d '%')
 
-            cat << JSON > /usr/share/nginx/html/api/metrics.json
+            [ -z "$CPU" ] && CPU=5
+            [ -z "$RAM" ] && RAM=15
+            [ -z "$DISK" ] && DISK=20
+
+            cat > /usr/share/nginx/html/api/metrics.json << JSON
           {
             "uptime": "$UPTIME",
-            "cpu": $${CPU:-4},
-            "ram": $${RAM:-15},
-            "disk": $${DISK:-18},
+            "cpu": $CPU,
+            "ram": $RAM,
+            "disk": $DISK,
             "timestamp": "$(date -u +'%H:%M:%S UTC')"
           }
           JSON
@@ -407,7 +411,7 @@ Resources:
           EOF
           chmod +x /usr/local/bin/metrics-daemon.sh
           nohup /usr/local/bin/metrics-daemon.sh >/dev/null 2>&1 &
-
+          
           # 4. Write Reactive HTML Dashboard
           cat > /usr/share/nginx/html/index.html << 'HTMLEOF'
           <!DOCTYPE html>
