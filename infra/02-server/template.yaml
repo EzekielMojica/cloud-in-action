@@ -241,10 +241,7 @@ Resources:
   WebServerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: >
-        Security Group for the cloud-in-action web server.
-        Allows HTTP and HTTPS from the internet.
-        SSH is intentionally disabled - use SSM Session Manager instead.
+      GroupDescription: "Security Group for cloud-in-action web server allowing HTTP/HTTPS"
       VpcId: !Ref VPC
 
       SecurityGroupIngress:

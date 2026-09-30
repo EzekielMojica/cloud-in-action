@@ -21,7 +21,7 @@ jobs:
       # ── STEP 1: Check out the code ────────────────────────────────────────
       # SECURITY: Pinned to a specific SHA hash to prevent supply chain attacks.
       # If "actions/checkout@v4" were compromised, the SHA pin protects you.
-      - name: "📥 Checkout repository"
+      - name: "Checkout repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         # SECURITY: Pinned SHA prevents supply chain attacks.
         # Always pin GitHub Action versions to a SHA, not a tag.
@@ -36,7 +36,7 @@ jobs:
       #
       # ALTERNATIVE (more secure): Use OIDC instead of long-lived access keys.
       # See docs/setup-aws-credentials.md for the OIDC setup guide.
-      - name: "🔐 Configure AWS credentials"
+      - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502  # v4.0.2
         # SECURITY: Pinned SHA prevents supply chain attacks.
         with:
@@ -48,7 +48,7 @@ jobs:
       # aws cloudformation validate-template checks the template syntax
       # and structure against the CloudFormation API.
       # It does NOT deploy anything — it just validates.
-      - name: "✅ Validate Stack 1 — Storage (S3)"
+      - name: "Validate Stack 1 — Storage (S3)"
         run: |
           echo "Validating infra/01-storage/template.yaml..."
           aws cloudformation validate-template \
@@ -56,7 +56,7 @@ jobs:
           echo "Stack 1 template is valid!"
 
       # ── STEP 4: Validate Stack 2 — Server ────────────────────────────────
-      - name: "✅ Validate Stack 2 — Server (EC2)"
+      - name: "Validate Stack 2 — Server (EC2)"
         run: |
           echo "Validating infra/02-server/template.yaml..."
           aws cloudformation validate-template \
@@ -64,7 +64,7 @@ jobs:
           echo "Stack 2 template is valid!"
 
       # ── STEP 5: Validate Stack 3 — Serverless ────────────────────────────
-      - name: "✅ Validate Stack 3 — Serverless (Lambda)"
+      - name: "Validate Stack 3 — Serverless (Lambda)"
         run: |
           echo "Validating infra/03-serverless/template.yaml..."
           aws cloudformation validate-template \
@@ -77,12 +77,12 @@ jobs:
       #   - Best practice violations
       #   - Potential issues (like missing DependsOn)
       #   - Security recommendations
-      - name: "🔍 Install cfn-lint"
+      - name: "Install cfn-lint"
         run: |
           pip install cfn-lint --quiet
           cfn-lint --version
 
-      - name: "🔍 Run cfn-lint on all templates"
+      - name: "Run cfn-lint on all templates"
         run: |
           echo "Running cfn-lint (deep analysis)..."
           # -I = include informational messages
@@ -95,7 +95,7 @@ jobs:
         # To fail on warnings, remove "|| true" and use --include-checks.
 
       # ── STEP 7: Summary ──────────────────────────────────────────────────
-      - name: "🎉 All templates validated!"
+      - name: "All templates validated!"
         run: |
           echo ""
           echo "╔══════════════════════════════════════════════════╗"
