@@ -107,8 +107,11 @@ jobs:
           aws s3 cp infra/01-storage/index.html \
             "s3://${BUCKET_NAME}/index.html" \
             --content-type "text/html"
+          aws s3 cp infra/01-storage/error.html \
+            "s3://${BUCKET_NAME}/error.html" \
+            --content-type "text/html"
 
-          echo "index.html uploaded!"
+          echo "index.html and error.html uploaded!"
 
       # ── STEP 6: Show outputs ──────────────────────────────────────────────
       # Print the stack outputs so the live URL is visible in the workflow log.
