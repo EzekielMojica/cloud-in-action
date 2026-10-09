@@ -25,6 +25,10 @@
 #   - IAM Instance Profile uses least-privilege SSM policy
 #
 # HOW TO DEPLOY (from your terminal):
+#   gh workflow run "Deploy Stack 2 - Server (EC2)" -f environment=dev --ref main
+#   gh run list --workflow "Deploy Stack 2 - Server (EC2)" -L 1
+
+# Not working because it needs AWS keys on the laptop. The aws secret keys are in GitHub secrets, not on the laptop. Use the GitHub Actions workflow instead.
 #   aws cloudformation deploy \
 #     --template-file infra/02-server/template.yaml \
 #     --stack-name cloud-in-action-server \
@@ -105,7 +109,7 @@ Mappings:
     eu-central-1:
       AMI: ami-0a261c0e5f51090b1   # Frankfurt
     ap-southeast-1:
-      AMI: ami-0df7a207adb9748c7   # Singapore
+      AMI: ami-01a395a37625fb28c   # Singapore (mali daw ubuntu kaya walang dnf/yum NOTE: Napaltan ko na)
     ap-northeast-1:
       AMI: ami-0e25eba2025eea319   # Tokyo
     ap-south-1:
